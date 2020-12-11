@@ -14,7 +14,7 @@ char latitude[15];
 char longitude[15];
 char altitude[6];
 
-//////////////////////////////////////// Setup codes /////////////////////////////////////
+// SETUP CODE
 void setup() {
   Serial.begin(115200); // pc connect 
   Serial.println("_________________ Starting ____________________");
@@ -28,7 +28,9 @@ void setup() {
   digitalWrite(LED, LOW);
   Serial.println("_________________ START ____________________");
 }
-//////////////////////////////////////// Main code ///////////////////////////////////////
+
+
+// LOOPING CODE
 void loop() {
   if (SIM808.available() > 0)
   {
@@ -37,7 +39,7 @@ void loop() {
   delay(1);
 }
 
-//////////////////////////////////////// Functions area //////////////////////////////////
+// FUNCTIONS
 void GSM_Connect() {
   Serial.println("GSM Connecting ...");
   // checks if the module is started
@@ -69,7 +71,7 @@ void GSM_Connect() {
   sendATcommand("AT+CMGF=1", "OK", 2000);
 }
 
-//////////////////////////////////// activate GPS //////////////////////////////////////////////////////
+// ACTIVATING GPS
 
 int8_t GPS_connect() {
 
@@ -90,7 +92,7 @@ int8_t GPS_connect() {
   return answer;
 }
 
-////////////////////////////////////////// read SMS //////////////////////////////////////
+// READ SMS
 void read_sms() {
   msg = "";
   Serial.println("Reading SMS...");
@@ -115,7 +117,7 @@ void read_sms() {
   SIM808.flush();
 }
 
-////////////////////////////////////////// get GPS location ////////////////////////////////////////////////
+// GETTING THE GPS LOCATION
 int8_t get_GPS() {
   Serial.println("\nGeting GPS Location");
   int8_t counter;
@@ -173,7 +175,7 @@ int8_t get_GPS() {
   return answer;
 }
 
-/////////////////////////////////////// control AT commands and functions ///////////////////////////////////////////////////
+// AT COMMAND FUNCTIONS
 int8_t sendATcommand(char* ATcommand, char* expected_answer1, unsigned int timeout) {
 
   uint8_t x = 0,  answer = 0;
@@ -211,7 +213,7 @@ int8_t sendATcommand(char* ATcommand, char* expected_answer1, unsigned int timeo
   return answer;
 }
 
-////////////////////////////////////////// SEND SMS //////////////////////////////////////
+// SENDING SMS
 void send_sms() {
   SIM808.println("AT+CMGF=1");// SMS Mode
   delay(1000);
